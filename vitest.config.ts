@@ -7,6 +7,7 @@ export default mergeConfig(
     test: {
       include: ["**/tests/**/*.test.?(c|m)[jt]s?(x)"],
       environment: "happy-dom",
+      reporters: ["html"],
     },
   })
 );
