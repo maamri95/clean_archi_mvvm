@@ -1,6 +1,6 @@
 import { Outlet } from "@tanstack/react-router";
 import { FC } from "react";
-import Header from "#presentation/components/Header";
+import {Header} from "#presentation/components/Header";
 import { Flex } from "@chakra-ui/react";
 
 export const Layout: FC = () => {

@@ -42,7 +42,7 @@ import { Link, useNavigate } from '@tanstack/react-router'
     )
   }
   
-  export default function Header() {
+  export function Header() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { colorMode, toggleColorMode } = useColorMode()
     const navigate = useNavigate()
