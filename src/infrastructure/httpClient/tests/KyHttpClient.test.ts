@@ -57,119 +57,119 @@ describe("KyHttpClient", () => {
     });
   });
 
-  // describe("POST method", () => {
-  //   it("should execute POST requests correctly", async () => {
-  //     const mockData = { result: "post success" };
-  //     const postData = { myData: "data" };
+  describe("POST method", () => {
+    it("should execute POST requests correctly", async () => {
+      const mockData = { result: "post success" };
+      const postData = { myData: "data" };
 
-  //     mockKy.post = vi.fn().mockReturnValue({
-  //       json: vi.fn().mockResolvedValue(mockData),
-  //     });
+      mockKy.post = vi.fn().mockReturnValue({
+        json: vi.fn().mockResolvedValue(mockData),
+      });
 
-  //     const result = await client.post<typeof mockData>({
-  //       url: "/test",
-  //       body: postData,
-  //     });
-  //     expect(result).toEqual(mockData);
-  //   });
+      const result = await client.post<typeof mockData>({
+        url: "/test",
+        body: postData,
+      });
+      expect(result).toEqual(mockData);
+    });
 
-  //   it("should throw NetworkError on timeout during POST", async () => {
-  //     mockKy.post = vi.fn().mockImplementationOnce(() => {
-  //       throw new TimeoutError({} as Request);
-  //     });
+    it("should throw NetworkError on timeout during POST", async () => {
+      mockKy.post = vi.fn().mockImplementationOnce(() => {
+        throw new TimeoutError({} as Request);
+      });
 
-  //     await expect(client.post({ url: "/test", body: {} })).rejects.toThrow(
-  //       NetworkError
-  //     );
-  //   });
+      await expect(client.post({ url: "/test", body: {} })).rejects.toThrow(
+        NetworkError
+      );
+    });
 
-  //   it("should throw ClientError on client error during POST", async () => {
-  //     const fakeResponse = new Response(null, { status: 400 });
-  //     mockKy.post = vi.fn().mockImplementationOnce(() => {
-  //       throw new HTTPError(
-  //         fakeResponse,
-  //         {} as Request,
-  //         {} as NormalizedOptions
-  //       );
-  //     });
+    it("should throw ClientError on client error during POST", async () => {
+      const fakeResponse = new Response(null, { status: 400 });
+      mockKy.post = vi.fn().mockImplementationOnce(() => {
+        throw new HTTPError(
+          fakeResponse,
+          {} as Request,
+          {} as NormalizedOptions
+        );
+      });
 
-  //     await expect(client.post({ url: "/test", body: {} })).rejects.toThrow(
-  //       ClientError
-  //     );
-  //   });
+      await expect(client.post({ url: "/test", body: {} })).rejects.toThrow(
+        ClientError
+      );
+    });
 
-  //   it("should throw ServerError on server error during POST", async () => {
-  //     const fakeResponse = new Response(null, { status: 500 });
-  //     mockKy.post = vi.fn().mockImplementationOnce(() => {
-  //       throw new HTTPError(
-  //         fakeResponse,
-  //         {} as Request,
-  //         {} as NormalizedOptions
-  //       );
-  //     });
+    it("should throw ServerError on server error during POST", async () => {
+      const fakeResponse = new Response(null, { status: 500 });
+      mockKy.post = vi.fn().mockImplementationOnce(() => {
+        throw new HTTPError(
+          fakeResponse,
+          {} as Request,
+          {} as NormalizedOptions
+        );
+      });
 
-  //     await expect(client.post({ url: "/test", body: {} })).rejects.toThrow(
-  //       ServerError
-  //     );
-  //   });
-  // });
+      await expect(client.post({ url: "/test", body: {} })).rejects.toThrow(
+        ServerError
+      );
+    });
+  });
 
-  // describe("PUT method", () => {
-  //   it("should execute PUT requests correctly", async () => {
-  //     const mockData = { result: "put success" };
-  //     const putData = { updatedData: "newData" };
+  describe("PUT method", () => {
+    it("should execute PUT requests correctly", async () => {
+      const mockData = { result: "put success" };
+      const putData = { updatedData: "newData" };
 
-  //     mockKy.put = vi.fn().mockReturnValue({
-  //       json: vi.fn().mockResolvedValue(mockData),
-  //     });
+      mockKy.put = vi.fn().mockReturnValue({
+        json: vi.fn().mockResolvedValue(mockData),
+      });
 
-  //     const result = await client.put<typeof mockData>({
-  //       url: "/test",
-  //       body: putData,
-  //     });
-  //     expect(result).toEqual(mockData);
-  //   });
+      const result = await client.put<typeof mockData>({
+        url: "/test",
+        body: putData,
+      });
+      expect(result).toEqual(mockData);
+    });
 
-  //   it("should throw NetworkError on timeout during PUT", async () => {
-  //     mockKy.put = vi.fn().mockImplementationOnce(() => {
-  //       throw new TimeoutError({} as Request);
-  //     });
+    it("should throw NetworkError on timeout during PUT", async () => {
+      mockKy.put = vi.fn().mockImplementationOnce(() => {
+        throw new TimeoutError({} as Request);
+      });
 
-  //     await expect(client.put({ url: "/test", body: {} })).rejects.toThrow(
-  //       NetworkError
-  //     );
-  //   });
+      await expect(client.put({ url: "/test", body: {} })).rejects.toThrow(
+        NetworkError
+      );
+    });
 
-  //   it("should throw ClientError on client error during PUT", async () => {
-  //     const fakeResponse = new Response(null, { status: 400 });
-  //     mockKy.put = vi.fn().mockImplementationOnce(() => {
-  //       throw new HTTPError(
-  //         fakeResponse,
-  //         {} as Request,
-  //         {} as NormalizedOptions
-  //       );
-  //     });
+    it("should throw ClientError on client error during PUT", async () => {
+      const fakeResponse = new Response(null, { status: 400 });
+      mockKy.put = vi.fn().mockImplementationOnce(() => {
+        throw new HTTPError(
+          fakeResponse,
+          {} as Request,
+          {} as NormalizedOptions
+        );
+      });
 
-  //     await expect(client.put({ url: "/test", body: {} })).rejects.toThrow(
-  //       ClientError
-  //     );
-  //   });
+      await expect(client.put({ url: "/test", body: {} })).rejects.toThrow(
+        ClientError
+      );
+    });
 
-  //   it("should throw ServerError on server error during PUT", async () => {
-  //     const fakeResponse = new Response(null, { status: 500 });
-  //     mockKy.put = vi.fn().mockImplementationOnce(() => {
-  //       throw new HTTPError(
-  //         fakeResponse,
-  //         {} as Request,
-  //         {} as NormalizedOptions
-  //       );
-  //     });
+    it("should throw ServerError on server error during PUT", async () => {
+      const fakeResponse = new Response(null, { status: 500 });
+      mockKy.put = vi.fn().mockImplementationOnce(() => {
+        throw new HTTPError(
+          fakeResponse,
+          {} as Request,
+          {} as NormalizedOptions
+        );
+      });
 
-  //     await expect(client.put({ url: "/test", body: {} })).rejects.toThrow(
-  //       ServerError
-  //     );
-  //   });
-  // });
+      await expect(client.put({ url: "/test", body: {} })).rejects.toThrow(
+        ServerError
+      );
+    });
+  });
 
   describe("DELETE method", () => {
     it("should execute DELETE requests correctly", async () => {
