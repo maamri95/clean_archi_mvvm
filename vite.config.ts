@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      "#src": path.resolve(__dirname, "src"),
       "#domaine": path.resolve(__dirname, "src/domaine"),
       "#infrastructure": path.resolve(__dirname, "src/infrastructure"),
       "#presentation": path.resolve(

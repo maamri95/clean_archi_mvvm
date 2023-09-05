@@ -1,7 +1,7 @@
 import { FC, lazy } from "react";
 import { RouterProvider as RouterProviderCore } from "@tanstack/react-router";
 import { Env } from "#utils/env";
-import { router } from "src/App.route";
+import { router } from "#src/App.route";
 const TanStackRouterDevtools =
   Env("NODE_ENV") === "production"
     ? () => null // Render nothing in production

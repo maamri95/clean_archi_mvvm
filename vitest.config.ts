@@ -9,7 +9,7 @@ export default mergeConfig(
       isolate: true,
       include: ["**/tests/**/*.test.?(c|m)[jt]s?(x)"],
       environment: "happy-dom",
-      reporters: ["html"],
+      reporters: ["html", "default"],
       coverage: {
         provider: 'istanbul',
         exclude: ['**/diConfig.ts', '**/*Factory.ts'],

@@ -27,6 +27,7 @@
     /* Alias */
     "baseUrl": "./",
     "paths": {
+      "#src/*": ["src/*"],
       "#domaine/*": ["src/domaine/*"],
       "#infrastructure/*": ["src/infrastructure/*"],
       "#presentation/*": ["src/infrastructure/presentation/*"],
