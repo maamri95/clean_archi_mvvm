@@ -1,5 +1,4 @@
-import type { ImportMetaEnv } from "../vite-env";
-export const Env = (key: keyof ImportMetaEnv) => {
+export const Env = (key: string) => {
   if (process) {
     if (key in process.env) {
       return process.env[key];

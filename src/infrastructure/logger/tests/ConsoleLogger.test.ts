@@ -1,6 +1,7 @@
 import { LogLevel } from "#contracts/logger/Logger";
 import { DefaultDateProvider } from "#infrastructure/dateProvider/DefaultDateProvider";
 import { ConsoleLogger } from "#infrastructure/logger/ConsoleLogger";
+import { JsonParser } from "#infrastructure/parser/JsonParser";
 import {
   vi,
   describe,
@@ -10,15 +11,17 @@ import {
   it,
   SpyInstance,
 } from "vitest";
+
+
 describe("ConsoleLogger", () => {
   let logger: ConsoleLogger;
   let logSpy: SpyInstance;
   let errorSpy: SpyInstance;
   let infoSpy: SpyInstance;
   let warnSpy: SpyInstance;
-
+  
   beforeEach(() => {
-    logger = new ConsoleLogger(new DefaultDateProvider());
+    logger = new ConsoleLogger(new DefaultDateProvider(), new JsonParser(), 'test');
     logSpy = vi.spyOn(console, "log");
     errorSpy = vi.spyOn(console, "error");
     infoSpy = vi.spyOn(console, "info");

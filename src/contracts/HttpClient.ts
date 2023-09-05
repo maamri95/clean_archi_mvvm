@@ -72,9 +72,4 @@ export class ClientError extends HttpClientError {
   }
 }
 
-export class MiddelwareError extends HttpClientError {
-  constructor(message: string) {
-    super(message);
-    this.name = "MiddelwareError";
-  }
-}
+

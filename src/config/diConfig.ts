@@ -1,19 +1,28 @@
 import "reflect-metadata";
 import { DateProvider } from "#contracts/DateProvider";
 import { HttpClient } from "#contracts/HttpClient";
-import { Logger } from "#contracts/logger/Logger";
 import { DateFnsDateProvider } from "#infrastructure/dateProvider/DateFnsDateProvider";
 import { KyHttpClient } from "#infrastructure/httpClient/ky/KyHttpClient";
 import { ConsoleLogger } from "#infrastructure/logger/ConsoleLogger";
 import { container } from "tsyringe";
 import ky from "ky";
 import { KyFactory } from "#infrastructure/httpClient/ky/kyFactory";
+import { LocalFeatureFlagRepository } from "#infrastructure/data/repositories/feature-flag/featureFlagRepository.repository";
+import { GetFeatureFlagRequest } from "#domaine/feature-flag/dto/getFeatureFlagResponse.dto";
+import { ImpGetFeatureFlagRequest } from "#infrastructure/data/request/feature-flag/getFeatureFlagRequest.dto";
+import { FeatureFlagRepository } from "#domaine/feature-flag/repositories/featureFlagRepository.repository";
+import { Parser } from "#contracts/Parser";
+import { JsonParser } from "#infrastructure/parser/JsonParser";
+import { Logger } from "#contracts/logger";
 
 export const DI_TOKENS = {
   logger: "Logger",
   dateProvider: "DateProvider",
   httpClient: "HttpClient",
   httpClientConfig: "httpClientConfig",
+  featureFlagRepository: "FeatureFlagRepository",
+  getFeatureFlagRequest: "GetFeatureFlagRequest",
+  parser: "Parser",
 } as const;
 
 export function setupDependencyInjection() {
@@ -24,6 +33,9 @@ export function setupDependencyInjection() {
   );
   container.registerSingleton<HttpClient>(DI_TOKENS.httpClient, KyHttpClient);
   container.register<typeof ky>(DI_TOKENS.httpClientConfig, {
-    useValue: KyFactory.createInstance(),
+    useValue: KyFactory.createInstance(new JsonParser()),
   });
+  container.register<FeatureFlagRepository>(DI_TOKENS.featureFlagRepository, {useValue: new LocalFeatureFlagRepository(['test'])})
+  container.registerSingleton<GetFeatureFlagRequest>(DI_TOKENS.getFeatureFlagRequest, ImpGetFeatureFlagRequest)
+  container.registerSingleton<Parser<string, unknown>>(DI_TOKENS.parser, JsonParser)
 }

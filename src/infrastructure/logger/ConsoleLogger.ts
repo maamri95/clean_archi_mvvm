@@ -1,5 +1,7 @@
 import { Logger, LogLevel } from "#contracts/logger/Logger";
+import { injectable } from "tsyringe";
 
+@injectable()
 export class ConsoleLogger extends Logger {
   log(message: string): void {
     console.log(this.formatMessage(LogLevel.LOG, message));
@@ -19,4 +21,7 @@ export class ConsoleLogger extends Logger {
   warn(message: string): void {
     console.warn(this.formatMessage(LogLevel.WARNING, message));
   }
+
+
+  
 }
