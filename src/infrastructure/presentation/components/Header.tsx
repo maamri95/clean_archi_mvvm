@@ -15,7 +15,7 @@ import {
     useColorMode,
   } from '@chakra-ui/react'
   import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
-import { Link, useNavigate } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router'
   
   interface Props {
     children: React.ReactNode
@@ -45,7 +45,6 @@ import { Link, useNavigate } from '@tanstack/react-router'
   export function Header() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { colorMode, toggleColorMode } = useColorMode()
-    const navigate = useNavigate()
   
     return (
       <>
