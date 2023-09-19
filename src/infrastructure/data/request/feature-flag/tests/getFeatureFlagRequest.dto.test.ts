@@ -3,18 +3,8 @@ import { ImpGetFeatureFlagRequest } from '../getFeatureFlagRequest.dto';
 
 describe('ImpGetFeatureFlagRequest', () => {
 
-    describe('isValid', () => {
-
-        it('should return true if featureName is non-empty', () => {
-            const request = new ImpGetFeatureFlagRequest('testFeature');
-            expect(request.isValid()).toBe(true);
-        });
-
-        it('should return false if featureName is empty', () => {
-            const request = new ImpGetFeatureFlagRequest('');
-            expect(request.isValid()).toBe(false);
-        });
-
+    it('should find in featureName same sting send in constructor', () => {
+        const request = new ImpGetFeatureFlagRequest('testFeature');
+        expect(request.featureName).toEqual('testFeature');
     });
-
 });

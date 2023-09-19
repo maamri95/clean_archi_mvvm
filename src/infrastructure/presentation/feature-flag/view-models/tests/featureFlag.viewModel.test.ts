@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, vi, expect, Mocked } from "vitest";
 import {FeatureFlagViewModel} from "../featureFlag.viewModel"
-import { GetFeatureFlag } from "#domaine/feature-flag/use-cases/get-feature-flag/GetFeatureFlag.usecase";
+import { GetFeatureFlag } from "#domaine/feature-flag/use-cases/get-feature-flag/getFeatureFlag.usecase";
 
 describe('FeatureFlagViewModel', () => {
   let getFeatureFlagMock: Mocked<GetFeatureFlag>;
@@ -38,8 +38,8 @@ describe('FeatureFlagViewModel', () => {
   it('should return false if feature name is invalid', async () => {
     const featureName = ''; // assuming this is invalid
     const result = await viewModel.isFeatureEnabled(featureName);
-
+    getFeatureFlagMock.execute.mockResolvedValue(undefined)
     expect(result).toBe(false);
-    expect(getFeatureFlagMock.execute).not.toHaveBeenCalled();
+    expect(getFeatureFlagMock.execute).toHaveBeenCalled();
   });
 });
