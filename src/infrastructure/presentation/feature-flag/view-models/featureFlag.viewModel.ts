@@ -1,4 +1,4 @@
-import { GetFeatureFlag } from "#domaine/feature-flag/use-cases/get-feature-flag/GetFeatureFlag.usecase";
+import { GetFeatureFlag } from "#domaine/feature-flag/use-cases/get-feature-flag/getFeatureFlag.usecase";
 import { ImpGetFeatureFlagRequest } from "#infrastructure/data/request/feature-flag/getFeatureFlagRequest.dto";
 import { inject, injectable } from "tsyringe";
 
@@ -12,12 +12,10 @@ export class FeatureFlagViewModel {
      */
     async isFeatureEnabled(featureName: string): Promise<boolean> {
       const request = new ImpGetFeatureFlagRequest(featureName)
-      if(request.isValid()){
         const response = await this.getFeatureFlag.execute(request);
         if(response){
           return response.featureFlag.isEnabled;
         }
-      }
       return false      
     }
   }
