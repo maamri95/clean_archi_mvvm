@@ -1,45 +1,53 @@
-import { describe, it, beforeEach, vi, expect, Mocked } from "vitest";
-import {FeatureFlagViewModel} from "../featureFlag.viewModel"
-import { GetFeatureFlag } from "#domaine/feature-flag/use-cases/get-feature-flag/getFeatureFlag.usecase";
+import { renderHook } from '@testing-library/react';
+import { useQuery } from '@tanstack/react-query';
+import useDi from '#presentation/hook/useDi.ts';
+import { useFeatureFlagViewModel } from '../featureFlag.viewModel';
+import {vi, it, describe, beforeEach, expect, Mock } from 'vitest'
+import {GetFeatureFlag} from "#domaine/feature-flag/use-cases/get-feature-flag/getFeatureFlag.usecase.ts";
 
-describe('FeatureFlagViewModel', () => {
-  let getFeatureFlagMock: Mocked<GetFeatureFlag>;
-  let viewModel: FeatureFlagViewModel;
+// You'd import this mock or mock the real useDi function depending on your project structure.
+vi.mock('#presentation/hook/useDi.ts');
+// Mocking useQuery
+vi.mock('@tanstack/react-query', () => ({
+  useQuery: vi.fn()
+}));
 
+// Mocking useDi
+const mockGetFeatureFlag = {
+  execute: vi.fn()
+};
+
+
+describe('useFeatureFlagViewModel', () => {
   beforeEach(() => {
-    // Initialisation des mocks
-    getFeatureFlagMock = {
-      execute: vi.fn(),
-    } as any;
-
-    viewModel = new FeatureFlagViewModel(getFeatureFlagMock);
+    vi.clearAllMocks();
   });
 
-  it('should return true if feature is enabled', async () => {
-    const featureName = 'some-feature';
-    getFeatureFlagMock.execute.mockResolvedValue({ featureFlag: { isEnabled: true, name: "some-feature" } });
+  it('fetches feature flag status based on feature name and return false if it\'s not enable', async () => {
+    const featureName = 'disableFeature';
+    const mockData = { featureFlag: { isEnabled: false } };
 
-    const result = await viewModel.isFeatureEnabled(featureName);
-
-    expect(result).toBe(true);
-    expect(getFeatureFlagMock.execute).toHaveBeenCalledWith({ featureName });
+    mockGetFeatureFlag.execute.mockResolvedValue(mockData);
+    (useDi as Mock).mockReturnValue(mockGetFeatureFlag);
+    (useQuery as Mock).mockReturnValue({
+      data: mockData.featureFlag.isEnabled
+    });
+    const { result } = renderHook(() => useFeatureFlagViewModel(featureName));
+    expect(useDi).toHaveBeenCalledWith(GetFeatureFlag);
+    expect(result.current.isFeatureEnabled).toBeFalsy();
   });
 
-  it('should return false if feature is disabled', async () => {
-    const featureName = 'some-feature';
-    getFeatureFlagMock.execute.mockResolvedValue({ featureFlag: { isEnabled: false, name: "some-feature" } });
+  it('fetches feature flag status based on feature name and return true if it\'s enable', async () => {
+    const featureName = 'enableFeature';
+    const mockData = { featureFlag: { isEnabled: true } };
 
-    const result = await viewModel.isFeatureEnabled(featureName);
-
-    expect(result).toBe(false);
-    expect(getFeatureFlagMock.execute).toHaveBeenCalledWith({ featureName });
-  });
-
-  it('should return false if feature name is invalid', async () => {
-    const featureName = ''; // assuming this is invalid
-    const result = await viewModel.isFeatureEnabled(featureName);
-    getFeatureFlagMock.execute.mockResolvedValue(undefined)
-    expect(result).toBe(false);
-    expect(getFeatureFlagMock.execute).toHaveBeenCalled();
+    mockGetFeatureFlag.execute.mockResolvedValue(mockData);
+    (useDi as Mock).mockReturnValue(mockGetFeatureFlag);
+    (useQuery as Mock).mockReturnValue({
+      data: mockData.featureFlag.isEnabled
+    });
+    const { result } = renderHook(() => useFeatureFlagViewModel(featureName));
+    expect(useDi).toHaveBeenCalledWith(GetFeatureFlag);
+    expect(result.current.isFeatureEnabled).toBeTruthy();
   });
 });

@@ -1,11 +1,11 @@
 import {UseCase} from "#contracts/UseCase"
 import type { FeatureFlagRepository } from "#domaine/feature-flag/repositories/featureFlagRepository.repository";
-import {GetFeatureFlagResponse} from "#domaine/feature-flag/dto/getFeatureFlagRequest.dto"
-import {GetFeatureFlagRequest} from "#domaine/feature-flag/dto/getFeatureFlagResponse.dto"
 import { inject, injectable } from "tsyringe";
 import { DI_TOKENS } from "#config/diConfig";
 import { Logger } from "#contracts/logger";
 import {FeatureFlagValidator} from "#domaine/feature-flag/validator/featureFlag.validator.ts";
+import {GetFeatureFlagResponse} from "#domaine/feature-flag/dto/getFeatureFlagResponse.dto.ts";
+import {GetFeatureFlagRequest} from "#domaine/feature-flag/dto/getFeatureFlagRequest.dto.ts";
 
 @injectable()
 export class GetFeatureFlag implements UseCase<GetFeatureFlagRequest, GetFeatureFlagResponse> {
@@ -20,13 +20,12 @@ export class GetFeatureFlag implements UseCase<GetFeatureFlagRequest, GetFeature
             this.logger.error('Invalid request', validationResult.errors)
             return undefined
         }
-      const featureFlag = this.featureFlagRepository.getFeatureFlag(request.featureName)
+      const featureFlag = await this.featureFlagRepository.getFeatureFlag(request.featureName)
       this.logger.info(`${featureFlag.name} is : ${featureFlag.isEnabled ? 'enable' : 'disable'}`)
       return {
-        featureFlag
+          featureFlag
       }
     }
-  
   }
   
 
