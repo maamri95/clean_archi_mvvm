@@ -7,7 +7,7 @@ export default mergeConfig(
     test: {
       setupFiles: 'tests/vitest.setup.ts',
       isolate: true,
-      include: ["**/tests/**/*.test.?(c|m)[jt]s?(x)"],
+      include: ["**/*.test.?(c|m)[jt]s?(x)"],
       environment: "happy-dom",
       reporters: ["html", "default"],
       coverage: {

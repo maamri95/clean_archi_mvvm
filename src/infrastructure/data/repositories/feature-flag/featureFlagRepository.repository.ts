@@ -1,13 +1,14 @@
 import { FeatureFlag } from "#domaine/feature-flag/entities/FeatureFlag.entity";
 import { FeatureFlagRepository } from "#domaine/feature-flag/repositories/featureFlagRepository.repository";
-import { injectable } from "tsyringe";
+import {inject, injectable} from "tsyringe";
+import {LocalFeatureFlagDatasource} from "#infrastructure/data/datasources/local/localFeatureFlag.datasource.ts";
 
 
 @injectable()
 export class LocalFeatureFlagRepository implements FeatureFlagRepository {
-    constructor(private activeFlag: string[]){}
-    getFeatureFlag(name: string): FeatureFlag {
-        const isEnabled = this.activeFlag.includes(name)
-        return new FeatureFlag(name, isEnabled);
+    constructor(@inject(LocalFeatureFlagDatasource) private readonly localFeatureFlagDatasource: LocalFeatureFlagDatasource){}
+    async getFeatureFlag(name: string): Promise<FeatureFlag> {
+        const feature =  await this.localFeatureFlagDatasource.getByUuid(name)
+        return !!feature ? feature : new FeatureFlag(name, false)
       }
 }
