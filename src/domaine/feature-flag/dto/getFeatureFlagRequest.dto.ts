@@ -1,7 +1,7 @@
-import {Response} from "#contracts/Response"
-import { FeatureFlag } from "#domaine/feature-flag/entities/FeatureFlag.entity";
+import {Request} from "#contracts/Request.ts";
 
 
-export interface GetFeatureFlagResponse extends Response {
-    featureFlag: FeatureFlag
-  }
+
+export interface GetFeatureFlagRequest extends Request {
+    featureName: string
+}

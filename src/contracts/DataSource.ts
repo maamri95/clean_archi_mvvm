@@ -6,13 +6,13 @@ export interface DataSource<T> {
   delete(uuid: string): Promise<void>;
 }
 
-interface PaginationOptions {
+export interface PaginationOptions {
   page: number;
   pageSize: number;
   sortBy?: string;
 }
 
-interface PaginatedResult<T> {
+export interface PaginatedResult<T> {
   data: T[];
   meta: {
     total: number;

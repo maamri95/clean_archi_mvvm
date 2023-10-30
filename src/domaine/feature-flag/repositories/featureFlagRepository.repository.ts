@@ -6,5 +6,5 @@ export interface FeatureFlagRepository {
    * @param name - The name of the feature flag.
    * @returns The retrieved feature flag.
    */
-    getFeatureFlag(name: string): FeatureFlag;
+    getFeatureFlag(name: string): Promise<FeatureFlag>;
   }

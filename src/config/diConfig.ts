@@ -8,12 +8,12 @@ import { container } from "tsyringe";
 import ky from "ky";
 import { KyFactory } from "#infrastructure/httpClient/ky/kyFactory";
 import { LocalFeatureFlagRepository } from "#infrastructure/data/repositories/feature-flag/featureFlagRepository.repository";
-import { GetFeatureFlagRequest } from "#domaine/feature-flag/dto/getFeatureFlagResponse.dto";
-import { ImpGetFeatureFlagRequest } from "#infrastructure/data/request/feature-flag/getFeatureFlagRequest.dto";
 import { FeatureFlagRepository } from "#domaine/feature-flag/repositories/featureFlagRepository.repository";
 import { Parser } from "#contracts/Parser";
 import { JsonParser } from "#infrastructure/parser/JsonParser";
 import { Logger } from "#contracts/logger";
+import {LocalFeatureFlagDatasource} from "#infrastructure/data/datasources/local/localFeatureFlag.datasource.ts";
+import {FeatureFlag} from "#domaine/feature-flag/entities/FeatureFlag.entity.ts";
 
 export const DI_TOKENS = {
   logger: "Logger",
@@ -35,7 +35,12 @@ export function setupDependencyInjection() {
   container.register<typeof ky>(DI_TOKENS.httpClientConfig, {
     useValue: KyFactory.createInstance(new JsonParser()),
   });
-  container.register<FeatureFlagRepository>(DI_TOKENS.featureFlagRepository, {useValue: new LocalFeatureFlagRepository(['test'])})
-  container.registerSingleton<GetFeatureFlagRequest>(DI_TOKENS.getFeatureFlagRequest, ImpGetFeatureFlagRequest)
+  container.register<FeatureFlagRepository>(DI_TOKENS.featureFlagRepository, {
+    useValue: new LocalFeatureFlagRepository(
+        new LocalFeatureFlagDatasource([
+            new FeatureFlag('test', true)
+        ])
+    )
+  })
   container.registerSingleton<Parser<string, unknown>>(DI_TOKENS.parser, JsonParser)
 }
