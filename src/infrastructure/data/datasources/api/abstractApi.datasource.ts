@@ -1,6 +1,6 @@
 import {DataSource, PaginatedResult, PaginationOptions} from "#contracts/DataSource.ts";
 import {inject} from "tsyringe";
-import type {HttpClient} from "#contracts/HttpClient.ts";
+import type {HttpClient} from "#contracts/HttpClient";
 import {DI_TOKENS} from "#config/diConfig.ts";
 import { Logger } from "#src/contracts/logger";
 
