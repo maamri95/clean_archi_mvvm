@@ -1,6 +1,6 @@
 import {DataSource, PaginatedResult, PaginationOptions} from "#contracts/DataSource.ts";
 const TIMEOUT = 5
-export class AbstractLocalDatasource<T extends {uuid: string}> implements DataSource<T> {
+export abstract class AbstractLocalDatasource<T extends {uuid: string}> implements DataSource<T> {
     constructor(private items: T[]) {}
     create(item: T): Promise<T> {
         return new Promise((resolve) => {
