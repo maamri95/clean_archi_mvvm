@@ -11,7 +11,7 @@ describe("DateFnsProvider", () => {
   it("should return the current date", () => {
     const current = new Date();
     const result = dateProvider.now();
-    expect(result.getTime()).toBeCloseTo(current.getTime(), 0);
+    expect(result.getTime()).toBeCloseTo(current.getTime(), 4);
   });
 
   it("should add days to a date", () => {
