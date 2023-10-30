@@ -12,7 +12,7 @@ describe('LocalFeatureFlagRepository', () => {
     ];
 
     beforeAll(async () => {
-        let localFeatureFlagDatasource = new LocalFeatureFlagDatasource(activeFlags);
+        const localFeatureFlagDatasource = new LocalFeatureFlagDatasource(activeFlags);
         repo = new LocalFeatureFlagRepository(localFeatureFlagDatasource);
     });
 

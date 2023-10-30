@@ -9,6 +9,6 @@ export class LocalFeatureFlagRepository implements FeatureFlagRepository {
     constructor(@inject(LocalFeatureFlagDatasource) private readonly localFeatureFlagDatasource: LocalFeatureFlagDatasource){}
     async getFeatureFlag(name: string): Promise<FeatureFlag> {
         const feature =  await this.localFeatureFlagDatasource.getByUuid(name)
-        return !!feature ? feature : new FeatureFlag(name, false)
+        return feature ? feature : new FeatureFlag(name, false)
       }
 }

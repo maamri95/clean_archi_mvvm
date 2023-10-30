@@ -13,7 +13,7 @@ export abstract class AbstractApiDatasource<T> implements DataSource<T>{
     }
     async create(item: T): Promise<T> {
         this.#log('create started')
-        let promise = await this.httpClient.post<T>({
+        const promise = await this.httpClient.post<T>({
             url: this.baseUrl,
             body: item as object
         });
@@ -23,7 +23,7 @@ export abstract class AbstractApiDatasource<T> implements DataSource<T>{
 
     async delete(uuid: string): Promise<void> {
         this.#log('delete started')
-        let promise = await this.httpClient.delete<void>({
+        const promise = await this.httpClient.delete<void>({
             url: `${this.baseUrl}/${uuid}`
         });
         this.#log('delete ended')
@@ -32,7 +32,7 @@ export abstract class AbstractApiDatasource<T> implements DataSource<T>{
 
     async getAll(options?: PaginationOptions): Promise<PaginatedResult<T>> {
         this.#log('getAll started')
-        let promise = await this.httpClient.get<PaginatedResult<T>>({
+        const promise = await this.httpClient.get<PaginatedResult<T>>({
             url: this.baseUrl,
             params: {
                 page: options?.page?.toString() || '1',
@@ -46,7 +46,7 @@ export abstract class AbstractApiDatasource<T> implements DataSource<T>{
 
     async getByUuid(uuid: string): Promise<T | null> {
         this.#log('getByUuid started')
-        let promise = this.httpClient.get<T>({
+        const promise = this.httpClient.get<T>({
             url: `${this.baseUrl}/${uuid}`
         });
         this.#log('getByUuid ended');
@@ -55,7 +55,7 @@ export abstract class AbstractApiDatasource<T> implements DataSource<T>{
 
     async update(uuid: string, item: T): Promise<T> {
         this.#log('update started')
-        let promise = await this.httpClient.put<T>({
+        const promise = await this.httpClient.put<T>({
             url: `${this.baseUrl}/${uuid}`,
             body: item as object
         });
