@@ -6,7 +6,7 @@ import type { Parser } from "#contracts/Parser";
 export class KyFactory {
   static createInstance(parser:Parser<string, unknown>, kyConfig?: Options): typeof ky {
     return ky.create({
-      prefixUrl: Env("apiUrl"),
+      prefixUrl: Env("NXT_API_BASE_URL"),
       parseJson: parser.parse,
       ...(kyConfig || {}),
     });

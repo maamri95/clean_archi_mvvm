@@ -58,13 +58,21 @@ describe("Logger abstract class", () => {
 
 class MockLogger extends Logger {
   // eslint-disable-next-line
-  log(message: string): void {}
+  log(message: string): void {
+    console.log(message)
+  }
   // eslint-disable-next-line
-  error(message: string, error: unknown): void {}
+  error(message: string, error: unknown): void {
+    console.error(message, error)
+  }
   // eslint-disable-next-line
-  info(message: string): void {}
+  info(message: string): void {
+    console.info(message)
+  }
   // eslint-disable-next-line
-  warn(message: string): void {}
+  warn(message: string): void {
+    console.warn(message)
+  }
 }
 
 class MockDateProvider implements DateProvider {
@@ -73,19 +81,23 @@ class MockDateProvider implements DateProvider {
   }
   // eslint-disable-next-line
   addDays(date: Date, days: number): Date {
-    throw new Error("Method not implemented.");
+    console.log(date, days)
+    return date
   }
   // eslint-disable-next-line
   isBefore(date1: Date, date2: Date): boolean {
-    throw new Error("Method not implemented.");
+    console.log(date1, date2)
+    return true
   }
   // eslint-disable-next-line
   differenceInDays(date1: Date, date2: Date): number {
-    throw new Error("Method not implemented.");
+    console.log(date1, date2)
+    return 1
   }
   // eslint-disable-next-line
   differenceInHours(date1: Date, date2: Date): number {
-    throw new Error("Method not implemented.");
+    console.log(date1, date2)
+    return 1
   }
 }
 

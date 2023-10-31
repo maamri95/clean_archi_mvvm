@@ -12,7 +12,7 @@ describe("DefaultDateProvider", () => {
     const current = new Date();
     const result = dateProvider.now();
     console.dir({ current: current.getTime(), result: result.getTime() });
-    expect(result.getTime()).toBeCloseTo(current.getTime(), 0);
+    expect(result.getTime()).toBeCloseTo(current.getTime(), 5);
   });
 
   it("should add days to a date", () => {

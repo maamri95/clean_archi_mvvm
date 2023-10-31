@@ -1,7 +1,7 @@
 import {UseCase} from "#contracts/UseCase"
 import type { FeatureFlagRepository } from "#domaine/feature-flag/repositories/featureFlagRepository.repository";
 import { inject, injectable } from "tsyringe";
-import { DI_TOKENS } from "#config/diConfig";
+import { DI_TOKENS } from "#config/diTokens.ts";
 import { Logger } from "#contracts/logger";
 import {FeatureFlagValidator} from "#domaine/feature-flag/validator/featureFlag.validator.ts";
 import {GetFeatureFlagResponse} from "#domaine/feature-flag/dto/getFeatureFlagResponse.dto.ts";

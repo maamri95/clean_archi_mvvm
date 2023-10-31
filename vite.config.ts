@@ -4,6 +4,7 @@ import * as path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  envPrefix: "NXT_",
   resolve: {
     alias: {
       "#src": path.resolve(__dirname, "src"),
@@ -18,6 +19,7 @@ export default defineConfig({
       "#utils": path.resolve(__dirname, "src/utils"),
       "#assets": path.resolve(__dirname, "src/assets"),
       "#config": path.resolve(__dirname, "src/config"),
+      "#env": path.resolve(__dirname, "env.ts"),
     },
   },
 });

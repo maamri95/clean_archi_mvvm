@@ -1,32 +1,40 @@
+import z from "zod";
 import { Env } from "#utils/env";
 import { describe, afterAll, beforeEach, it, expect, vi } from "vitest";
+import * as envModule from "#env";
+vi.mock('#env', () => {
+        const mockSchema = z.object({
+            TEST_VAR: z.string(),
+            TEST_IMPORT_VAR: z.string().default('1')
+        });
+        return {
+            envSchema: mockSchema,
+        };
+    });
 describe('Env function', () => {
-    // sauvegarder les variables d'environnement originales
     const OLD_ENV = process.env;
   
     beforeEach(() => {
-      vi.resetModules(); // pour s'assurer que nous avons une nouvelle instance à chaque fois
-      process.env = { ...OLD_ENV }; // faire une copie des variables d'environnement originales
-      delete process.env.TEST_VAR; // assurer qu'il n'y a pas de TEST_VAR initial
+      vi.resetModules();
+      process.env = { ...OLD_ENV };
+      delete process.env.TEST_VAR;
     });
   
     afterAll(() => {
-      process.env = OLD_ENV; // restaurer l'environnement original après tous les tests
+      process.env = OLD_ENV;
     });
   
     it('should return environment variable from process.env', () => {
       process.env.TEST_VAR = 'valueFromProcess';
-      expect(Env('TEST_VAR')).toBe('valueFromProcess');
+      expect(Env('TEST_VAR' as keyof z.infer<typeof envModule.envSchema>)).toBe('valueFromProcess');
     });
   
     it('should return environment variable from import.meta.env', () => {
-      import.meta.env.TEST_VAR = 'valueFromImportMeta';
-      expect(Env('TEST_VAR')).toBe('valueFromImportMeta');
-      expect('DEV' in import.meta.env).toBeTruthy()
-      expect(Env('DEV')).toBe('1');
+      (import.meta.env.TEST_IMPORT_VAR as any) = 'valueFromImportMeta';
+      expect(Env('TEST_IMPORT_VAR' as any)).toBe('valueFromImportMeta');
     });
   
-    it('should return an empty string if environment variable does not exist', () => {
-      expect(Env('NON_EXISTENT_VAR')).toBe('');
+    it('should throw an error if environment variable does not exist', () => {
+      expect(() => Env('NON_EXISTENT_VAR' as keyof z.infer<typeof envModule.envSchema>)).toThrowError();
     });
   });

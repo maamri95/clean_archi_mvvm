@@ -14,16 +14,8 @@ import { JsonParser } from "#infrastructure/parser/JsonParser";
 import { Logger } from "#contracts/logger";
 import {LocalFeatureFlagDatasource} from "#infrastructure/data/datasources/local/localFeatureFlag.datasource.ts";
 import {FeatureFlag} from "#domaine/feature-flag/entities/FeatureFlag.entity.ts";
+import {DI_TOKENS} from "#config/diTokens.ts";
 
-export const DI_TOKENS = {
-  logger: "Logger",
-  dateProvider: "DateProvider",
-  httpClient: "HttpClient",
-  httpClientConfig: "httpClientConfig",
-  featureFlagRepository: "FeatureFlagRepository",
-  getFeatureFlagRequest: "GetFeatureFlagRequest",
-  parser: "Parser",
-} as const;
 
 export function setupDependencyInjection() {
   container.registerSingleton<Logger>(DI_TOKENS.logger, ConsoleLogger);
