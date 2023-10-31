@@ -1,4 +1,4 @@
-import { GetFeatureFlag } from "#domaine/feature-flag/use-cases/get-feature-flag/getFeatureFlag.usecase";
+import { GetFeatureFlag } from "#domain/feature-flag/use-cases/get-feature-flag/getFeatureFlag.use-case.ts";
 import {useQuery} from "@tanstack/react-query";
 import useDi from "#presentation/hook/useDi.ts";
 

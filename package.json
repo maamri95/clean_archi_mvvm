@@ -63,6 +63,7 @@
     "eslint-plugin-storybook": "^0.6.15",
     "happy-dom": "^12.10.3",
     "inquirer": "^9.2.11",
+    "inquirer-search-checkbox": "^1.0.0",
     "prettier": "^3.0.3",
     "storybook": "^7.5.1",
     "typescript": "^5.2.2",

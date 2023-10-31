@@ -1,8 +1,8 @@
 import {describe, beforeEach, vi, expect, it, Mocked} from 'vitest'
-import { GetFeatureFlag } from '../getFeatureFlag.usecase';
-import { FeatureFlagRepository } from '#domaine/feature-flag/repositories/featureFlagRepository.repository';
+import { GetFeatureFlag } from '../getFeatureFlag.use-case.ts';
+import { FeatureFlagRepository } from '#domain/feature-flag/repositories/featureFlagRepository.repository';
 import { Logger } from '#contracts/logger';
-import {FeatureFlagValidator} from "#domaine/feature-flag/validator/featureFlag.validator.ts";
+import {FeatureFlagValidator} from "#domain/feature-flag/validator/featureFlag.validator.ts";
 
 describe('GetFeatureFlag', () => {
     let getFeatureFlag: GetFeatureFlag;

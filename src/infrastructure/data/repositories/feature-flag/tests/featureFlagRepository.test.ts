@@ -1,6 +1,6 @@
 import { describe, it, beforeAll, expect } from "vitest";
 import { LocalFeatureFlagRepository } from "../featureFlagRepository.repository";
-import { FeatureFlag } from "#domaine/feature-flag/entities/FeatureFlag.entity";
+import { FeatureFlag } from "#domain/feature-flag/entities/FeatureFlag.entity";
 import {LocalFeatureFlagDatasource} from "#infrastructure/data/datasources/local/localFeatureFlag.datasource.ts";
 
 

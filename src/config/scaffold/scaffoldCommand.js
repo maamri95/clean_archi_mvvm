@@ -2,22 +2,23 @@ import fs from "node:fs";
 import path from "node:path";
 import inquirer from "inquirer";
 import config from "../scaffold.json" assert { type: 'json' };
-
+import searchCheckBox from "inquirer-search-checkbox";
+inquirer.registerPrompt('search-checkbox', searchCheckBox);
 const capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
-export const deCapitalize = (str) => {
-    return str.charAt(0).toLowerCase() + str.slice(1);
+export const kebabCase = (str) => {
+    return str.split(/(?=[A-Z])/).join('-').toLowerCase();
 }
 
 inquirer.prompt([
     {
         type: "input",
-        name: "domaine",
-        message: "Which domaine?"
+        name: "domain",
+        message: "Which domain?"
     },
     {
-        type: 'checkbox',
+        type: 'search-checkbox',
         name: 'fileTypes',
         message: 'Which file type you need ?',
         choices: [
@@ -27,7 +28,7 @@ inquirer.prompt([
             'UseCase',
             "Validator",
             "Entity",
-            "DTO",
+            "dto",
             "ViewModel",
             "View",
             "Component"
@@ -39,30 +40,30 @@ inquirer.prompt([
         message: "Which name?"
     }
 ]).then((answers) => {
-    const {domaine, fileTypes, name} = answers;
+    const {domain, fileTypes, name} = answers;
     const templates = {
-        Repository: `${config.templateDir}/domaine/repository.hbs`,
-        UseCase: `${config.templateDir}/domaine/use-case.hbs`,
-        Validator: `${config.templateDir}/domaine/validator.hbs`,
-        Entity: `${config.templateDir}/domaine/entity.hbs`,
-        DTO: `${config.templateDir}/domaine/dto.hbs`,
-        Request: `${config.templateDir}/domaine/request.hbs`,
-        Response: `${config.templateDir}/domaine/response.hbs`,
+        Repository: `${config.templateDir}/domain/repository.hbs`,
+        UseCase: `${config.templateDir}/domain/use-case.hbs`,
+        Validator: `${config.templateDir}/domain/validator.hbs`,
+        Entity: `${config.templateDir}/domain/entity.hbs`,
+        dto: `${config.templateDir}/domain/dto.hbs`,
+        Request: `${config.templateDir}/domain/request.hbs`,
+        Response: `${config.templateDir}/domain/response.hbs`,
         ViewModel: `${config.templateDir}/presentation/view-model.hbs`,
         View: `${config.templateDir}/presentation/view.hbs`,
         Component: `${config.templateDir}/presentation/component.hbs`,
     };
     const directories = {
-        Repository: `${config.outputDir}/domaine/${domaine}/repositories`,
-        UseCase: `${config.outputDir}/domaine/${domaine}/use-cases`,
-        Validator: `${config.outputDir}/domaine/${domaine}/validator`,
-        Entity: `${config.outputDir}/domaine/${domaine}/entities`,
-        DTO: `${config.outputDir}/domaine/${domaine}/dto`,
-        Request: `${config.outputDir}/domaine/${domaine}/dto`,
-        Response: `${config.outputDir}/domaine/${domaine}/dto`,
-        ViewModel: `${config.outputDir}/infrastructure/presentation/${domaine}/view-models`,
-        View: `${config.outputDir}/infrastructure/presentation/${domaine}/views`,
-        Component: `${config.outputDir}/infrastructure/presentation/${domaine}/components`,
+        Repository: `${config.outputDir}/domain/${domain}/repositories`,
+        UseCase: `${config.outputDir}/domain/${domain}/use-cases`,
+        Validator: `${config.outputDir}/domain/${domain}/validator`,
+        Entity: `${config.outputDir}/domain/${domain}/entities`,
+        dto: `${config.outputDir}/domain/${domain}/dto`,
+        Request: `${config.outputDir}/domain/${domain}/dto`,
+        Response: `${config.outputDir}/domain/${domain}/dto`,
+        ViewModel: `${config.outputDir}/infrastructure/presentation/${domain}/view-models`,
+        View: `${config.outputDir}/infrastructure/presentation/${domain}/views`,
+        Component: `${config.outputDir}/infrastructure/presentation/${domain}/components`,
     };
     for (const fileType of fileTypes) {
         const extension = `${config.extension}${['View', 'Component'].includes(fileType) ? "x" : ""}`
@@ -70,14 +71,17 @@ inquirer.prompt([
         const content = fs.readFileSync(path.resolve(template), "utf8");
         const result = content
             .replaceAll(/{{name}}/g, capitalize(name))
-            .replaceAll(/{{domaine}}/g, capitalize(domaine))
-            .replaceAll(/{{domainefile}}/g, domaine)
+            .replaceAll(/{{domain}}/g, capitalize(domain))
+            .replaceAll(/{{domainfile}}/g, domain)
             .replaceAll(/{{namefile}}/g, name);
-        const filepath = `${directories[fileType]}/${name}.${deCapitalize(fileType)}.${extension}`;
+        const filepath = `${directories[fileType]}/${name}.${kebabCase(fileType)}.${extension}`;
 
         fs.mkdirSync(path.dirname(filepath), { recursive: true });
-        fs.writeFileSync(filepath, result);
-
-        console.log(`${fileType} file created at ${filepath}`);
+        if (fs.existsSync(filepath)) {
+            console.error(`${fileType} file already exists at ${filepath}`);
+        }else{
+            fs.writeFileSync(filepath, result);
+            console.log(`${fileType} file created at ${filepath}`);
+        }
     }
 });

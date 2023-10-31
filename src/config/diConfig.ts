@@ -8,12 +8,12 @@ import { container } from "tsyringe";
 import ky from "ky";
 import { KyFactory } from "#infrastructure/httpClient/ky/kyFactory";
 import { LocalFeatureFlagRepository } from "#infrastructure/data/repositories/feature-flag/featureFlagRepository.repository";
-import { FeatureFlagRepository } from "#domaine/feature-flag/repositories/featureFlagRepository.repository";
+import { FeatureFlagRepository } from "#domain/feature-flag/repositories/featureFlagRepository.repository";
 import { Parser } from "#contracts/Parser";
 import { JsonParser } from "#infrastructure/parser/JsonParser";
 import { Logger } from "#contracts/logger";
 import {LocalFeatureFlagDatasource} from "#infrastructure/data/datasources/local/localFeatureFlag.datasource.ts";
-import {FeatureFlag} from "#domaine/feature-flag/entities/FeatureFlag.entity.ts";
+import {FeatureFlag} from "#domain/feature-flag/entities/FeatureFlag.entity.ts";
 import {DI_TOKENS} from "#config/diTokens.ts";
 
 

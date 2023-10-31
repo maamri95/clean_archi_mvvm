@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import useDi from '#presentation/hook/useDi.ts';
 import { useFeatureFlagViewModel } from '../featureFlag.viewModel';
 import {vi, it, describe, beforeEach, expect, Mock } from 'vitest'
-import {GetFeatureFlag} from "#domaine/feature-flag/use-cases/get-feature-flag/getFeatureFlag.usecase.ts";
+import {GetFeatureFlag} from "#domain/feature-flag/use-cases/get-feature-flag/getFeatureFlag.use-case.ts";
 
 // You'd import this mock or mock the real useDi function depending on your project structure.
 vi.mock('#presentation/hook/useDi.ts');

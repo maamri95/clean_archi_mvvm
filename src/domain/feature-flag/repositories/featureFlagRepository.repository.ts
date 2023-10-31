@@ -1,4 +1,4 @@
-import { FeatureFlag } from "#domaine/feature-flag/entities/FeatureFlag.entity";
+import { FeatureFlag } from "#domain/feature-flag/entities/FeatureFlag.entity";
 
 export interface FeatureFlagRepository {
   /**
