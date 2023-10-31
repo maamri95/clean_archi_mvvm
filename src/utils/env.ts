@@ -1,8 +1,12 @@
-import { envSchema } from "../../env";
+import { envSchema } from "#env";
 import z from "zod";
 
 type EnvKey = keyof z.infer<typeof envSchema>;
 export const Env = <T extends EnvKey>(key: T): z.infer<typeof envSchema.shape[T]> => {
+
+    if (!(key in envSchema.shape)) {
+        throw new Error(`Key ${key} not found in env schema`);
+    }
     let value: string | undefined = undefined;
 
     try {
@@ -20,13 +24,17 @@ export const Env = <T extends EnvKey>(key: T): z.infer<typeof envSchema.shape[T]
             value = import.meta.env[key];
         }
     }
-
     const schemaForKey = envSchema.shape[key];
     return schemaForKey.parse(value);
 }
 
-export const envValidation = () => {
-        envSchema.parse({
-        ...import.meta.env,
+/**
+ * Validate the environment variables against the schema
+ * @param schema zod schema to validate against
+ * @param env env variable object to validate
+ */
+export const envValidation = (schema: z.ZodType<any, any>, env: Record<string, unknown>) => {
+        schema.parse({
+            ...env,
         });
 }

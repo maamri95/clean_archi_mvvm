@@ -35,7 +35,8 @@
       "#contracts/*": ["src/contracts/*"],
       "#utils/*": ["src/utils/*"],
       "#config/*": ["src/config/*"],
-      "#assets/*": ["src/assets/*"]
+      "#assets/*": ["src/assets/*"],
+      "#env": ["env.ts"],
     }
   },
   "include": ["src"],
