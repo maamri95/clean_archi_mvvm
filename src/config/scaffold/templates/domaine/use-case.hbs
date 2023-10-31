@@ -1,9 +1,12 @@
 import { UseCase } from "#contracts/UseCase"
 import { injectable } from "tsyringe";
+import { {{name}}Request} from "#domaine/{{domainefile}}/dto/{{namefile}}.request.ts";
+import { {{name}}Response} from "#domaine/{{domainefile}}/dto/{{namefile}}.response.ts";
 
 @injectable()
 export class {{name}} implements UseCase< {{name}}Request, {{name}}Response> {
     constructor() {}
     async execute(request: {{name}}Request): Promise< {{name}}Response | undefined> {
+        return;
     }
 }

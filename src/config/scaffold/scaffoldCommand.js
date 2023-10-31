@@ -9,6 +9,7 @@ const capitalize = (str) => {
 export const deCapitalize = (str) => {
     return str.charAt(0).toLowerCase() + str.slice(1);
 }
+
 inquirer.prompt([
     {
         type: "input",
@@ -16,8 +17,8 @@ inquirer.prompt([
         message: "Which domaine?"
     },
     {
-        type: 'list',
-        name: 'fileType',
+        type: 'checkbox',
+        name: 'fileTypes',
         message: 'Which file type you need ?',
         choices: [
             'Repository',
@@ -38,7 +39,7 @@ inquirer.prompt([
         message: "Which name?"
     }
 ]).then((answers) => {
-    const {domaine, fileType, name} = answers;
+    const {domaine, fileTypes, name} = answers;
     const templates = {
         Repository: `${config.templateDir}/domaine/repository.hbs`,
         UseCase: `${config.templateDir}/domaine/use-case.hbs`,
@@ -63,18 +64,20 @@ inquirer.prompt([
         View: `${config.outputDir}/infrastructure/presentation/${domaine}/views`,
         Component: `${config.outputDir}/infrastructure/presentation/${domaine}/components`,
     };
-    const extension = `${config.extension}${['View', 'Component'].includes(fileType) ? "x" : ""}`
-    const template = templates[fileType];
-    const content = fs.readFileSync(path.resolve(template), "utf8");
-    const result = content
-        .replaceAll(/{{name}}/g, capitalize(name))
-        .replaceAll(/{{domaine}}/g, capitalize(domaine))
-        .replaceAll(/{{domainefile}}/g, domaine)
-        .replaceAll(/{{namefile}}/g, name);
-    const filepath = `${directories[fileType]}/${name}.${deCapitalize(fileType)}.${extension}`;
-    fs.mkdirSync(path.dirname(filepath), { recursive: true });
+    for (const fileType of fileTypes) {
+        const extension = `${config.extension}${['View', 'Component'].includes(fileType) ? "x" : ""}`
+        const template = templates[fileType];
+        const content = fs.readFileSync(path.resolve(template), "utf8");
+        const result = content
+            .replaceAll(/{{name}}/g, capitalize(name))
+            .replaceAll(/{{domaine}}/g, capitalize(domaine))
+            .replaceAll(/{{domainefile}}/g, domaine)
+            .replaceAll(/{{namefile}}/g, name);
+        const filepath = `${directories[fileType]}/${name}.${deCapitalize(fileType)}.${extension}`;
 
-    fs.writeFileSync(filepath, result);
+        fs.mkdirSync(path.dirname(filepath), { recursive: true });
+        fs.writeFileSync(filepath, result);
 
-    console.log(`${fileType} file created at ${filepath}`);
+        console.log(`${fileType} file created at ${filepath}`);
+    }
 });
