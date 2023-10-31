@@ -1,7 +1,7 @@
 import {DataSource, PaginatedResult, PaginationOptions} from "#contracts/DataSource.ts";
 import {inject} from "tsyringe";
 import type {HttpClient} from "#contracts/HttpClient";
-import {DI_TOKENS} from "#config/diConfig.ts";
+import {DI_TOKENS} from "#config/diTokens.ts";
 import { Logger } from "#src/contracts/logger";
 
 export abstract class AbstractApiDatasource<T> implements DataSource<T>{

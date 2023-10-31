@@ -3,7 +3,7 @@
 export interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string;
   readonly CI: boolean;
-  readonly apiUrl: string;
+  readonly NXT_API_BASE_URL: string;
   readonly NODE_ENV: "production" | "developement";
 }
 

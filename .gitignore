@@ -27,3 +27,12 @@ dist-ssr
 /playwright/.cache/
 /coverage
 /html
+
+# Env
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+.env.development
