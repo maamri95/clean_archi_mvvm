@@ -1,0 +1,6 @@
+{
+  "templateDir": "src/config/scaffold/templates",
+  "extension": "ts",
+  "baseDir": "./src",
+    "outputDir": "./src"
+}

@@ -8,5 +8,5 @@ export class FeatureFlag {
     constructor(public name: string, public isEnabled: boolean) {
       this.uuid = name;
   }
-  }
+}
   

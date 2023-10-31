@@ -1,0 +1,9 @@
+import { UseCase } from "#contracts/UseCase"
+import { injectable } from "tsyringe";
+
+@injectable()
+export class {{name}} implements UseCase< {{name}}Request, {{name}}Response> {
+    constructor() {}
+    async execute(request: {{name}}Request): Promise< {{name}}Response | undefined> {
+    }
+}

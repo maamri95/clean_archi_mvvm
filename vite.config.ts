@@ -5,6 +5,9 @@ import * as path from "path";
 export default defineConfig({
   plugins: [react()],
   envPrefix: "NXT_",
+  server: {
+    port: 3000,
+  },
   resolve: {
     alias: {
       "#src": path.resolve(__dirname, "src"),

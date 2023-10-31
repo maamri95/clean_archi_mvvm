@@ -7,4 +7,4 @@ export interface FeatureFlagRepository {
    * @returns The retrieved feature flag.
    */
     getFeatureFlag(name: string): Promise<FeatureFlag>;
-  }
+}
