@@ -1,9 +1,13 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import * as path from "path";
+import {configVitePlugin} from "./env";
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+      react(),
+      configVitePlugin(),
+  ],
   envPrefix: "NXT_",
   server: {
     port: 3000,

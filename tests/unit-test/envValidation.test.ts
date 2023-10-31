@@ -1,4 +1,4 @@
-import { envValidation } from "#utils/env";
+import { envValidation } from "../../env";
 import { describe, beforeEach, it, expect, vi } from "vitest";
 import z from "zod";
 

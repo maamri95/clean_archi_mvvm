@@ -27,14 +27,3 @@ export const Env = <T extends EnvKey>(key: T): z.infer<typeof envSchema.shape[T]
     const schemaForKey = envSchema.shape[key];
     return schemaForKey.parse(value);
 }
-
-/**
- * Validate the environment variables against the schema
- * @param schema zod schema to validate against
- * @param env env variable object to validate
- */
-export const envValidation = (schema: z.ZodType<any, any>, env: Record<string, unknown>) => {
-        schema.parse({
-            ...env,
-        });
-}

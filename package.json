@@ -25,6 +25,7 @@
     "@tanstack/react-router": "0.0.1-beta.198",
     "@tanstack/router-devtools": "0.0.1-beta.198",
     "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1",
     "i18next": "^23.6.0",
     "ky": "^1.1.2",
     "react": "^18.2.0",
