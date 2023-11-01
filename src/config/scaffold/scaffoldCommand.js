@@ -42,28 +42,28 @@ inquirer.prompt([
 ]).then((answers) => {
     const {domain, fileTypes, name} = answers;
     const templates = {
-        Repository: `${config.templateDir}/domain/repository.hbs`,
-        UseCase: `${config.templateDir}/domain/use-case.hbs`,
-        Validator: `${config.templateDir}/domain/validator.hbs`,
-        Entity: `${config.templateDir}/domain/entity.hbs`,
-        dto: `${config.templateDir}/domain/dto.hbs`,
-        Request: `${config.templateDir}/domain/request.hbs`,
-        Response: `${config.templateDir}/domain/response.hbs`,
-        ViewModel: `${config.templateDir}/presentation/view-model.hbs`,
-        View: `${config.templateDir}/presentation/view.hbs`,
-        Component: `${config.templateDir}/presentation/component.hbs`,
+        Repository: path.resolve(config.templateDir, 'domain', 'repository.hbs'),
+        UseCase: path.resolve(config.templateDir, 'domain', 'use-case.hbs'),
+        Validator: path.resolve(config.templateDir, 'domain', 'validator.hbs'),
+        Entity: path.resolve(config.templateDir, 'domain', 'entity.hbs'),
+        dto: path.resolve(config.templateDir, 'domain', 'dto.hbs'),
+        Request: path.resolve(config.templateDir, 'domain', 'request.hbs'),
+        Response: path.resolve(config.templateDir, 'domain', 'response.hbs'),
+        ViewModel: path.resolve(config.templateDir, 'presentation', 'view-model.hbs'),
+        View: path.resolve(config.templateDir, 'presentation', 'view.hbs'),
+        Component: path.resolve(config.templateDir, 'presentation', 'component.hbs'),
     };
     const directories = {
-        Repository: `${config.outputDir}/domain/${domain}/repositories`,
-        UseCase: `${config.outputDir}/domain/${domain}/use-cases`,
-        Validator: `${config.outputDir}/domain/${domain}/validator`,
-        Entity: `${config.outputDir}/domain/${domain}/entities`,
-        dto: `${config.outputDir}/domain/${domain}/dto`,
-        Request: `${config.outputDir}/domain/${domain}/dto`,
-        Response: `${config.outputDir}/domain/${domain}/dto`,
-        ViewModel: `${config.outputDir}/infrastructure/presentation/${domain}/view-models`,
-        View: `${config.outputDir}/infrastructure/presentation/${domain}/views`,
-        Component: `${config.outputDir}/infrastructure/presentation/${domain}/components`,
+        Repository: path.resolve(config.baseDir, config.domainDir, domain, 'repositories'),
+        UseCase: path.resolve(config.baseDir, config.domainDir, domain, 'use-cases'),
+        Validator: path.resolve(config.baseDir, config.domainDir, domain, 'validator'),
+        Entity: path.resolve(config.baseDir, config.domainDir, domain, 'entities'),
+        dto: path.resolve(config.baseDir, config.domainDir, domain, 'dto'),
+        Request: path.resolve(config.baseDir, config.domainDir, domain, 'dto'),
+        Response: path.resolve(config.baseDir, config.domainDir, domain, 'dto'),
+        ViewModel: path.resolve(config.baseDir, config.presentationDir, domain, 'view-models'),
+        View: path.resolve(config.baseDir, config.presentationDir, domain, 'views'),
+        Component: path.resolve(config.baseDir, config.presentationDir, domain, 'components'),
     };
     for (const fileType of fileTypes) {
         const extension = `${config.extension}${['View', 'Component'].includes(fileType) ? "x" : ""}`
