@@ -1,6 +1,7 @@
 import {setupDependencyInjection} from "#config/diConfig.ts";
 import {envSchema, envValidation} from "#env";
 import z from "zod";
+import {setupErrorHandler} from "#config/handler.ts";
 
 export const setup = () => {
     try {
@@ -11,5 +12,6 @@ export const setup = () => {
         }
     }
 
-    setupDependencyInjection();
+    const container = setupDependencyInjection();
+    setupErrorHandler(container);
 }

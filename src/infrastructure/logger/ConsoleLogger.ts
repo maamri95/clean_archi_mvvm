@@ -1,8 +1,18 @@
 import { Logger, LogLevel } from "#contracts/logger/Logger";
-import { injectable } from "tsyringe";
+import {inject, injectable} from "tsyringe";
+import type {Parser} from "#contracts/Parser.ts";
+import {DI_TOKENS} from "#config/diTokens.ts";
+import type {DateProvider} from "#contracts/DateProvider.ts";
 
 @injectable()
 export class ConsoleLogger extends Logger {
+  constructor(
+      @inject(DI_TOKENS.dateProvider) dateProvider: DateProvider,
+      @inject(DI_TOKENS.parser) parser: Parser<string, unknown>,
+      prefix?: string
+  ) {
+    super(dateProvider, parser, prefix)
+  }
   log(message: string): void {
     console.log(this.formatMessage(LogLevel.LOG, message));
   }
@@ -22,6 +32,4 @@ export class ConsoleLogger extends Logger {
     console.warn(this.formatMessage(LogLevel.WARNING, message));
   }
 
-
-  
 }

@@ -1,5 +1,7 @@
 import type { DateProvider } from "#contracts/DateProvider";
 import type { Parser } from "#contracts/Parser";
+import {DI_TOKENS} from "#config/diTokens.ts";
+import {inject} from "tsyringe";
 /**
  * Provides abstraction for logging functionalities.
  */
@@ -12,9 +14,9 @@ export abstract class Logger {
    * @param prefix - Optional prefix to prepend before each log message.
    */
   constructor(
-     private readonly dateProvider: DateProvider,
-    private readonly parser: Parser<string, unknown>,
-    prefix?: string
+      @inject(DI_TOKENS.dateProvider) private readonly dateProvider: DateProvider,
+      @inject(DI_TOKENS.parser) private readonly parser: Parser<string, unknown>,
+      prefix?: string
   ) {
     if (prefix) this.prefix = `[${prefix}]`;
   }
