@@ -1,0 +1,11 @@
+import {Validator} from "#contracts/Validator.ts";
+import z from "zod";
+/**
+    * @class {{name}}Validator
+    * @extends Validator<T> T is the type of the object to validate
+*/
+export class {{name}}Validator extends Validator<T>{
+    protected schema = z.object({
+
+    })
+}

@@ -1,5 +1,5 @@
-import { FeatureFlag } from "#domaine/feature-flag/entities/FeatureFlag.entity";
-import { FeatureFlagRepository } from "#domaine/feature-flag/repositories/featureFlagRepository.repository";
+import { FeatureFlag } from "#domain/feature-flag/entities/FeatureFlag.entity";
+import { FeatureFlagRepository } from "#domain/feature-flag/repositories/featureFlagRepository.repository";
 import {inject, injectable} from "tsyringe";
 import {LocalFeatureFlagDatasource} from "#infrastructure/data/datasources/local/localFeatureFlag.datasource.ts";
 

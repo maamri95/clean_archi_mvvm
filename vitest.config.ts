@@ -12,7 +12,7 @@ export default mergeConfig(
       reporters: ["html", "default"],
       coverage: {
         provider: 'istanbul',
-        exclude: ['**/diConfig.ts', '**/*Factory.ts'],
+        exclude: ['**/diConfig.ts', '**/*Factory.ts', 'env.ts'],
         lines: 80,
         functions: 80,
         statements: 80,
