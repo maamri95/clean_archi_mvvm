@@ -22,6 +22,4 @@ export class ConsoleLogger extends Logger {
     console.warn(this.formatMessage(LogLevel.WARNING, message));
   }
 
-
-  
 }

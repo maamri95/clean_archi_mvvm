@@ -1,0 +1,18 @@
+import {ErrorHandler} from "#contracts/ErrorHandler.ts";
+import {DI_TOKENS} from "#config/diTokens.ts";
+import {inject, injectable} from "tsyringe";
+import { Logger } from "#src/contracts/logger";
+@injectable()
+export class GlobalErrorHandler extends ErrorHandler {
+    constructor(@inject(DI_TOKENS.logger) private logger: Logger) {
+        super();
+    }
+    handle(error: any, message: string): void {
+        this.logger.error(message, error);
+    }
+
+    report(_error: any, _message: string): void {
+
+    }
+
+}

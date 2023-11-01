@@ -15,6 +15,7 @@ import { Logger } from "#contracts/logger";
 import {LocalFeatureFlagDatasource} from "#infrastructure/data/datasources/local/localFeatureFlag.datasource.ts";
 import {FeatureFlag} from "#domain/feature-flag/entities/FeatureFlag.entity.ts";
 import {DI_TOKENS} from "#config/diTokens.ts";
+import {GlobalErrorHandler} from "#infrastructure/errorHandler/globalErrorHandler.ts";
 
 
 export function setupDependencyInjection() {
@@ -35,4 +36,6 @@ export function setupDependencyInjection() {
     )
   })
   container.registerSingleton<Parser<string, unknown>>(DI_TOKENS.parser, JsonParser)
+  container.registerSingleton<GlobalErrorHandler>(GlobalErrorHandler, GlobalErrorHandler)
+  return container;
 }
