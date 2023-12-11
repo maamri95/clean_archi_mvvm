@@ -12,30 +12,31 @@ import { FeatureFlagRepository } from "#domain/feature-flag/repositories/feature
 import { Parser } from "#contracts/Parser";
 import { JsonParser } from "#infrastructure/parser/JsonParser";
 import { Logger } from "#contracts/logger";
-import {LocalFeatureFlagDatasource} from "#infrastructure/data/datasources/local/localFeatureFlag.datasource.ts";
-import {FeatureFlag} from "#domain/feature-flag/entities/FeatureFlag.entity.ts";
-import {DI_TOKENS} from "#config/diTokens.ts";
-import {GlobalErrorHandler} from "#infrastructure/errorHandler/globalErrorHandler.ts";
-
+import { LocalFeatureFlagDatasource } from "#infrastructure/data/datasources/local/localFeatureFlag.datasource.ts";
+import { FeatureFlag } from "#domain/feature-flag/entities/FeatureFlag.entity.ts";
+import { DI_TOKENS } from "#config/diTokens.ts";
+import { HttpClientConfig } from "#config/httpClientConfig.ts";
 
 export function setupDependencyInjection() {
-  container.registerSingleton<Logger>(DI_TOKENS.logger, ConsoleLogger);
   container.registerSingleton<DateProvider>(
     DI_TOKENS.dateProvider,
-    DateFnsDateProvider
+    DateFnsDateProvider,
   );
   container.registerSingleton<HttpClient>(DI_TOKENS.httpClient, KyHttpClient);
   container.register<typeof ky>(DI_TOKENS.httpClientConfig, {
-    useValue: KyFactory.createInstance(new JsonParser()),
+    useValue: KyFactory.createInstance(new JsonParser(), HttpClientConfig),
   });
+  container.registerSingleton<Parser<string, unknown>>(
+    DI_TOKENS.parser,
+    JsonParser,
+  );
+  container.registerSingleton<Logger>(DI_TOKENS.logger, ConsoleLogger);
+
   container.register<FeatureFlagRepository>(DI_TOKENS.featureFlagRepository, {
     useValue: new LocalFeatureFlagRepository(
-        new LocalFeatureFlagDatasource([
-            new FeatureFlag('test', true)
-        ])
-    )
-  })
-  container.registerSingleton<Parser<string, unknown>>(DI_TOKENS.parser, JsonParser)
-  container.registerSingleton<GlobalErrorHandler>(GlobalErrorHandler, GlobalErrorHandler)
+      new LocalFeatureFlagDatasource([new FeatureFlag("test", true)]),
+    ),
+  });
+
   return container;
 }

@@ -2,13 +2,14 @@ import { KyHttpClient } from "../ky/KyHttpClient";
 import ky, { HTTPError, NormalizedOptions, TimeoutError } from "ky";
 import { expect, describe, beforeEach, it, vi } from "vitest";
 import { ServerError, ClientError, NetworkError } from "#contracts/HttpClient";
+import { JsonParser } from "#infrastructure/parser/JsonParser.ts";
 describe("KyHttpClient", () => {
   let mockKy: typeof ky;
   let client: KyHttpClient;
 
   beforeEach(() => {
     mockKy = ky.create({});
-    client = new KyHttpClient(mockKy);
+    client = new KyHttpClient(mockKy, new JsonParser());
   });
 
   describe("GET method", () => {
@@ -36,7 +37,7 @@ describe("KyHttpClient", () => {
         throw new HTTPError(
           fakeResponse,
           {} as Request,
-          {} as NormalizedOptions
+          {} as NormalizedOptions,
         );
       });
 
@@ -49,7 +50,7 @@ describe("KyHttpClient", () => {
         throw new HTTPError(
           fakeResponse,
           {} as Request,
-          {} as NormalizedOptions
+          {} as NormalizedOptions,
         );
       });
 
@@ -79,7 +80,7 @@ describe("KyHttpClient", () => {
       });
 
       await expect(client.post({ url: "/test", body: {} })).rejects.toThrow(
-        NetworkError
+        NetworkError,
       );
     });
 
@@ -89,12 +90,12 @@ describe("KyHttpClient", () => {
         throw new HTTPError(
           fakeResponse,
           {} as Request,
-          {} as NormalizedOptions
+          {} as NormalizedOptions,
         );
       });
 
       await expect(client.post({ url: "/test", body: {} })).rejects.toThrow(
-        ClientError
+        ClientError,
       );
     });
 
@@ -104,12 +105,12 @@ describe("KyHttpClient", () => {
         throw new HTTPError(
           fakeResponse,
           {} as Request,
-          {} as NormalizedOptions
+          {} as NormalizedOptions,
         );
       });
 
       await expect(client.post({ url: "/test", body: {} })).rejects.toThrow(
-        ServerError
+        ServerError,
       );
     });
   });
@@ -136,7 +137,7 @@ describe("KyHttpClient", () => {
       });
 
       await expect(client.put({ url: "/test", body: {} })).rejects.toThrow(
-        NetworkError
+        NetworkError,
       );
     });
 
@@ -146,12 +147,12 @@ describe("KyHttpClient", () => {
         throw new HTTPError(
           fakeResponse,
           {} as Request,
-          {} as NormalizedOptions
+          {} as NormalizedOptions,
         );
       });
 
       await expect(client.put({ url: "/test", body: {} })).rejects.toThrow(
-        ClientError
+        ClientError,
       );
     });
 
@@ -161,12 +162,12 @@ describe("KyHttpClient", () => {
         throw new HTTPError(
           fakeResponse,
           {} as Request,
-          {} as NormalizedOptions
+          {} as NormalizedOptions,
         );
       });
 
       await expect(client.put({ url: "/test", body: {} })).rejects.toThrow(
-        ServerError
+        ServerError,
       );
     });
   });
@@ -189,7 +190,7 @@ describe("KyHttpClient", () => {
       });
 
       await expect(client.delete({ url: "/test" })).rejects.toThrow(
-        NetworkError
+        NetworkError,
       );
     });
 
@@ -199,12 +200,12 @@ describe("KyHttpClient", () => {
         throw new HTTPError(
           fakeResponse,
           {} as Request,
-          {} as NormalizedOptions
+          {} as NormalizedOptions,
         );
       });
 
       await expect(client.delete({ url: "/test" })).rejects.toThrow(
-        ClientError
+        ClientError,
       );
     });
 
@@ -214,12 +215,12 @@ describe("KyHttpClient", () => {
         throw new HTTPError(
           fakeResponse,
           {} as Request,
-          {} as NormalizedOptions
+          {} as NormalizedOptions,
         );
       });
 
       await expect(client.delete({ url: "/test" })).rejects.toThrow(
-        ServerError
+        ServerError,
       );
     });
   });

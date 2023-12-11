@@ -1,22 +1,25 @@
 export interface HttpClient {
   get<T, TParams = Record<string, string>>(
-    options: BaseOptions<TParams>
+    options: BaseOptions<TParams>,
   ): Promise<T>;
 
   delete<T, TParams = Record<string, string>>(
-    options: BaseOptions<TParams>
+    options: BaseOptions<TParams>,
   ): Promise<T>;
 
   post<T, TBody = object, TParams = Record<string, string>>(
-    options: BodyOptions<TBody, TParams>
+    options: BodyOptions<TBody, TParams>,
   ): Promise<T>;
 
   put<T, TBody = object, TParams = Record<string, string>>(
-    options: BodyOptions<TBody, TParams>
+    options: BodyOptions<TBody, TParams>,
+  ): Promise<T>;
+  patch<T, TBody = object, TParams = Record<string, string>>(
+    options: BodyOptions<TBody, TParams>,
   ): Promise<T>;
 
   request<T, TBody = object, TParams = Record<string, string>>(
-    requestOptions: RequestOptions<TBody, TParams>
+    requestOptions: RequestOptions<TBody, TParams>,
   ): Promise<T>;
 }
 
@@ -29,7 +32,7 @@ export type BodyOptions<TBody, TParams> = BaseOptions<TParams> & {
   body: TBody;
 };
 
-export type RequestMethod = "get" | "delete" | "post" | "put";
+export type RequestMethod = "get" | "delete" | "post" | "put" | "patch";
 
 export type RequestOptions<Tbody, TParams> =
   | {
@@ -37,9 +40,6 @@ export type RequestOptions<Tbody, TParams> =
       options: BodyOptions<Tbody, TParams>;
     }
   | {
-      method: Exclude<RequestMethod, "post" | "put">;
+      method: Exclude<RequestMethod, "post" | "put" | "patch">;
       options: BaseOptions<TParams>;
     };
-
-
-

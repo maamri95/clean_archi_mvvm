@@ -4,7 +4,10 @@ import { Response } from "#contracts/Response";
 /**
  * Represents a use case in the application.
  */
-export interface UseCase<Req extends Request, Res extends Response> {
+export interface UseCase<
+  Req extends Request | undefined,
+  Res extends Response | void,
+> {
   execute(request?: Req): Promise<Res | undefined>;
 }
 
@@ -12,8 +15,8 @@ export interface UseCase<Req extends Request, Res extends Response> {
  * Custom error class for use cases.
  */
 export class UseCaseError extends Error {
-  constructor(message: string){
-    super(message)
-    this.name = 'UseCaseError'
+  constructor(message: string) {
+    super(message);
+    this.name = "UseCaseError";
   }
 }

@@ -30,4 +30,11 @@ export interface DateProvider {
    * @param date2 The second date.
    */
   differenceInHours(date1: Date, date2: Date): number;
+
+  /**
+   * Returns the date in a given format.
+   * @param date The date to format.
+   * @param format The format to use.
+   */
+  format(date: Date, format?: string): string;
 }

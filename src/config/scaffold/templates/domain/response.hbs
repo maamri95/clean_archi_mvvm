@@ -1,5 +1,7 @@
-import {Response} from "#contracts/Response.ts";
+import z from "zod";
 
-export interface {{name}}Response extends Response {
+export const {{name}}ResponseSchema = z.object({});
 
-}
+export type {{name}}Response = z.infer<
+typeof {{name}}ResponseSchema
+>;

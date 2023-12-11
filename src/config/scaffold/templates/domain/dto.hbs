@@ -1,4 +1,9 @@
+import z from "zod";
+/**
+*
+**/
+export const {{name}}Schema = z.object({
 
-export interface {{name}}Dto {
+})
 
-}
+export type {{name}}Dto = z.infer< typeof {{name}}Schema>;

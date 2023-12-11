@@ -1,5 +1,7 @@
-import {Request} from "#contracts/Request.ts";
+import z from "zod";
 
-export interface {{name}}Request extends Request {
+export const {{name}}RequestSchema = z.object({});
 
-}
+export type {{name}}Request = z.infer<
+typeof {{name}}RequestSchema
+>;

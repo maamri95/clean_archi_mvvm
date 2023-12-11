@@ -57,19 +57,19 @@ describe("Logger abstract class", () => {
 });
 
 class MockLogger extends Logger {
-  // eslint-disable-next-line
+   
   log(message: string): void {
     console.log(message)
   }
-  // eslint-disable-next-line
+   
   error(message: string, error: unknown): void {
     console.error(message, error)
   }
-  // eslint-disable-next-line
+   
   info(message: string): void {
     console.info(message)
   }
-  // eslint-disable-next-line
+   
   warn(message: string): void {
     console.warn(message)
   }
@@ -79,22 +79,22 @@ class MockDateProvider implements DateProvider {
   now(): Date {
     return new Date("2023-09-03 19:10");
   }
-  // eslint-disable-next-line
+   
   addDays(date: Date, days: number): Date {
     console.log(date, days)
     return date
   }
-  // eslint-disable-next-line
+   
   isBefore(date1: Date, date2: Date): boolean {
     console.log(date1, date2)
     return true
   }
-  // eslint-disable-next-line
+   
   differenceInDays(date1: Date, date2: Date): number {
     console.log(date1, date2)
     return 1
   }
-  // eslint-disable-next-line
+   
   differenceInHours(date1: Date, date2: Date): number {
     console.log(date1, date2)
     return 1

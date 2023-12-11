@@ -3,11 +3,13 @@ import {
   isBefore,
   differenceInDays,
   differenceInHours,
+  format as formatDate,
 } from "date-fns";
 import { DateProvider } from "#contracts/DateProvider";
-
+import { injectable } from "tsyringe";
+import { enCA } from "date-fns/locale";
+@injectable()
 export class DateFnsDateProvider implements DateProvider {
-  constructor() {}
   now(): Date {
     return new Date();
   }
@@ -26,5 +28,9 @@ export class DateFnsDateProvider implements DateProvider {
 
   differenceInHours(date1: Date, date2: Date): number {
     return differenceInHours(date2, date1);
+  }
+
+  format(date: Date, format: string = "yyyy/MM/dd"): string {
+    return formatDate(date, format, { locale: enCA });
   }
 }
